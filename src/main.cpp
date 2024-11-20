@@ -1,19 +1,27 @@
-#include <Arduino.h> 
-#define LED_PIN 5 
+#include <Arduino.h>
+
+// Define pins
+#define IR_SENSOR_PIN 13 
+#define LED_PIN 25     
 
 void setup() {
- 
-  pinMode(LED_PIN, OUTPUT);
+  pinMode(IR_SENSOR_PIN, INPUT);  
+  pinMode(LED_PIN, OUTPUT);       
+  Serial.begin(115200);      
 }
 
 void loop() {
+  int irState = digitalRead(IR_SENSOR_PIN); 
 
-  digitalWrite(LED_PIN, HIGH);
-  delay(500); 
+  if (irState == HIGH) {
+    digitalWrite(LED_PIN, LOW);  
+    Serial.println("No obstacle detected");
+  } else {
+    digitalWrite(LED_PIN, HIGH);
+    Serial.println("Obstacle detected");
+  }
 
- 
-  digitalWrite(LED_PIN, LOW);
-  delay(500); 
+  delay(100);
 }
 
 
